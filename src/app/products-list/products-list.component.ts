@@ -17,7 +17,6 @@ export class ProductsListComponent {
    ngOnInit(): void {
     this.ps.get_products_list().subscribe({
       next: (response : any) => {
-        console.log('Fetched products:', response); 
         this.products = response.data;
       },
       error: (err) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../types/product';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, CurrencyPipe, NgIf } from '@angular/common';
 import { ProductServiceService } from '../services/product-service.service';
 import { CartServiceService } from '../services/cart-service.service';
@@ -16,7 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
   selectedImage : any = '';
 quantity: number = 1;
-  constructor(private route: ActivatedRoute, private ps : ProductServiceService, private cartService: CartServiceService) {}
+  constructor(private route: ActivatedRoute, private ps : ProductServiceService, private cartService: CartServiceService, private router: Router) {}
   
  
   ngOnInit() {
@@ -33,6 +33,7 @@ quantity: number = 1;
     for (let i = 0; i < this.quantity; i++) {
       this.cartService.add_to_the_cart(this.product);
     }
+    this.router.navigate(['/cart']);
   }
 }
   

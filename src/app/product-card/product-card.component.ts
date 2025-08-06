@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../types/product';
 import { CurrencyPipe, NgClass, NgFor } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartServiceService } from '../services/cart-service.service';
 
 @Component({
@@ -13,10 +13,12 @@ import { CartServiceService } from '../services/cart-service.service';
 export class ProductCardComponent {
   @Input() product!: Product;
 
-   constructor(private cartService: CartServiceService) {}
+   constructor(private cartService: CartServiceService, private router: Router) {}
 
   addToCart() {
     this.cartService.add_to_the_cart(this.product);
+    this.router.navigate(['/cart']);
+
   }
   
   getStockStatus(): string {

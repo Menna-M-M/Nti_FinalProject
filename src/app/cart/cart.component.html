@@ -4,7 +4,7 @@
   @if (cartItems.length === 0) {
     <div>Your cart is empty.</div>
   } @else {
-    @for (item of cartItems; track item.id) {
+  @for (item of cartItems; track item?.product?.id ?? item){
       <div class="row border-bottom py-3 align-items-center">
         <div class="col-md-2">
           <img [src]="item.product.images[0]" class="img-fluid rounded" alt="Product">

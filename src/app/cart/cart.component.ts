@@ -14,11 +14,14 @@ export class CartComponent {
   constructor(private cartService: CartServiceService) {}
 
   ngOnInit() {
-    this.cartService.getCartItems().subscribe(items => this.cartItems = items);
-  }
+  this.cartService.loadCartFromServer();
+  this.cartService.getCartItems().subscribe(items => this.cartItems = items);
+}
+
 
   increase(item: any) {
-    this.cartService.changeQuantity(item.product.id, 1);
+    console.log (item.productId)
+    this.cartService.changeQuantity(item.product.id,  item.quantity + 1);
   }
 
   decrease(item: any) {
@@ -26,7 +29,7 @@ export class CartComponent {
   }
 
   remove(item: any) {
-    this.cartService.removeFromCart(item.product.id);
+    this.cartService.removeFromCart(item.product);
   }
 
   getTotal() {
