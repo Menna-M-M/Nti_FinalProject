@@ -1,0 +1,13 @@
+
+<div class="container my-4">
+  <h2>Menna's App</h2>
+  <p class="text-muted">Welcome to our shopping website, start browsing...</p>
+
+  <div class="row">
+     @for(product of products; track product.id){
+    <div class="col-md-4 mb-4">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  }
+  </div>
+</div>

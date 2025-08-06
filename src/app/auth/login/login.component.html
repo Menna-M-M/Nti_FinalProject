@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow p-4" style="width: 400px;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form #loginForm = "ngForm" (submit) = "handlesubmit(loginForm)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Enter email"
+          name = "email"
+          ngModel
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          #emailfield = ngModel
+        />
+      </div>
+      @if(emailfield.invalid && (emailfield.touched ||  loginForm.submitted)  ){
+        <div class = "form-text text-danger">
+            @if(emailfield.errors?.['required']){
+              <span> Email is required to login</span>
+            }
+            @if(emailfield.errors?.['pattern']){
+              <span> Pls provide an email with correct format</span>
+            }
+        </div>
+      }
+      <br>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter password"
+          name = "password"
+          ngModel
+          required
+          #Passwordfield = ngModel
+        />
+      </div>
+      @if(Passwordfield.invalid && (Passwordfield.touched ||  loginForm.submitted)  ){
+        <div class = "form-text text-danger">
+            @if(Passwordfield.errors?.['required']){
+              <span> Password is required to login</span>
+            }
+        </div>
+      }
+      <br>
+      <button type="submit" class="btn btn-primary w-100" >Login</button>
+      
+      <div class="text-center mt-3">
+        <a href="hhh">Forgot password?</a>
+      </div>
+
+      <div class="text-center mt-3">
+        Don't have an account?
+        <a routerLink="/register" routerLinkActive="active-link" class="text-decoration-none">Register</a>
+      </div>
+    </form>
+  </div>
+</div>

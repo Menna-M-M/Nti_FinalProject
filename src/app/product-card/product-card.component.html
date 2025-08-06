@@ -1,0 +1,33 @@
+<a [routerLink]="['/product', product.id]" class="text-decoration-none text-dark">
+<div class="card h-100 shadow-sm">
+  <img [src]="product.images[0]" class="card-img-top product-img" alt="{{ product.title }}">
+  <div class="card-body text-center">
+    <h5 class="card-title">{{ product.title }}</h5>
+
+    <p class="card-text fw-bold">{{ product.price | currency:'EGP':'symbol' }}</p>
+    <div>
+      <p>
+        Rating:
+        @for (star of getStars(product.rating); track $index) {
+            <span class="text-warning">★</span>
+        }
+        </p>
+
+    </div>
+    <p [ngClass]="getStockClass()" class="fw-bold mt-2">{{ getStockStatus() }}</p>
+    <a routerLink="/cart" routerLinkActive="active"> <button class="btn btn-outline-primary mt-2" (click)="addToCart()">Add to Cart</button> </a>
+  </div>
+</div>
+</a>
+
+
+<!-- 
+//Notes for menna:
+// check al currency pipe (done )
+// check al interface bt3 al types
+// check fkrt en fe component bay share data la component tany 3ady
+// matnseesh howar ngoint w al lifecycle dool 
+// shofy ezay 3mlna interface w hatena al products fe makan tany w 3mlna card w al products etb3tt lal card w et3rdt f ela parent al app nfso
+// al products f app
+// al card f ehata tanya
+//w 3ndy interface lal products gowa type -->
