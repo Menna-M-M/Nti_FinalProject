@@ -17,9 +17,7 @@ export class EditProductComponent {
     description: ''
   };
 
-  // ✅ Add this method
   save() {
     console.log('Product saved:', this.product);
-    // implement update logic here (e.g., call a service)
   }
 }
