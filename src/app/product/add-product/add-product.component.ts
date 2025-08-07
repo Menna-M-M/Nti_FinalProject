@@ -35,10 +35,7 @@ onImageSelected(event: Event): void {
 
 addProduct(): void {
   if (this.selectedImageFile) {
-    // For now, we'll just set the file name (mock)
     this.product.imageUrl = this.selectedImageFile.name;
-
-    // TODO: You can later upload this file to a server or Firebase etc.
   }
 
   console.log('Product added:', this.product);
