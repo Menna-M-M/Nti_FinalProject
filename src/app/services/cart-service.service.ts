@@ -100,4 +100,11 @@ removeFromCart(product: any) {
     const cart = this.cart_items.getValue();
     return cart.reduce((sum, item) => sum + item.quantity, 0);
   }
+
+
+  clearCart() {
+  this.cart_items.next([]);
+  this.cart_counter.next(0);
+}
+
 }

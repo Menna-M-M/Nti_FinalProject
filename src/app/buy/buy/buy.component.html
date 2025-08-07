@@ -1,0 +1,23 @@
+<h2>Confirm Your Purchase</h2>
+
+<div *ngIf="cartItems.length > 0">
+  <h4>Items:</h4>
+  <ul>
+    <li *ngFor="let item of cartItems">
+      {{ item.name }} - {{ item.quantity }} x {{ item.price }} EGP
+    </li>
+  </ul>
+
+  <h4>Total: {{ totalPrice }} EGP</h4>
+
+  <h4>Shipping Information</h4>
+  <input [(ngModel)]="shippingInfo.address" placeholder="Address" required />
+  <input [(ngModel)]="shippingInfo.phone" placeholder="Phone" required />
+  <textarea [(ngModel)]="shippingInfo.notes" placeholder="Notes"></textarea>
+
+  <button (click)="placeOrder()">Place Order</button>
+</div>
+
+<div *ngIf="cartItems.length === 0">
+  <p>Your cart is empty.</p>
+</div>
