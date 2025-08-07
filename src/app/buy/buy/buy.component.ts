@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ Import this
+import { CommonModule } from '@angular/common';
 import { CartServiceService } from '../../services/cart-service.service';
 import { OrderService } from '../../services/order-service.service';
 import { Subscription } from 'rxjs';
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
   selector: 'app-buy',
   templateUrl: './buy.component.html',
   styleUrls: ['./buy.component.css'],
-  standalone: true, // ✅ Ensure it's marked as standalone
-  imports: [FormsModule, CommonModule], // ✅ Add CommonModule here
+  standalone: true, 
+  imports: [FormsModule, CommonModule], 
 })
 export class BuyComponent implements OnInit {
   cartItems: any[] = [];
