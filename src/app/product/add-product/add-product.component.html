@@ -1,0 +1,67 @@
+<div class="container mt-5">
+  <h3 class="mb-4">Add New Product</h3>
+  <form #form="ngForm" (ngSubmit)="addProduct()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Product Name</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        required
+        [(ngModel)]="product.name"
+        name="name"
+        #name="ngModel"
+      />
+      <div *ngIf="name.invalid && name.touched" class="text-danger">
+        Product name is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="number"
+        id="price"
+        class="form-control"
+        required
+        [(ngModel)]="product.price"
+        name="price"
+        #price="ngModel"
+      />
+      <div *ngIf="price.invalid && price.touched" class="text-danger">
+        Price is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        rows="3"
+        [(ngModel)]="product.description"
+        name="description"
+      ></textarea>
+    </div>
+
+    
+  <div class="mb-3">
+      <label for="image" class="form-label">Product Image</label>
+      <input
+        type="file"
+        id="image"
+        class="form-control"
+        (change)="onImageSelected($event)"
+        accept="image/*"
+      />
+      <div *ngIf="previewUrl" class="mt-2">
+        <p class="text-muted">Image Preview:</p>
+        <img [src]="previewUrl" alt="Preview" class="img-thumbnail" width="200" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      Add Product
+    </button>
+  </form>
+</div>
