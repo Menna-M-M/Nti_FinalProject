@@ -6,6 +6,7 @@ import { ProductServiceService } from '../services/product-service.service';
 import { CartServiceService } from '../services/cart-service.service';
 
 @Component({
+    standalone: true,
   selector: 'app-product-details',
   imports: [CommonModule, CurrencyPipe, RouterLink, RouterLinkActive],
   templateUrl: './product-details.component.html',
@@ -31,6 +32,7 @@ quantity: number = 1;
   addToCart() {
   if (this.product) {
     for (let i = 0; i < this.quantity; i++) {
+      console.log (this.product)
       this.cartService.add_to_the_cart(this.product);
     }
     this.router.navigate(['/cart']);

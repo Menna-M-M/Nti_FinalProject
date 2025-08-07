@@ -15,7 +15,10 @@ export class ProductCardComponent {
 
    constructor(private cartService: CartServiceService, private router: Router) {}
 
-  addToCart() {
+  addToCart(event: Event): void {
+  event.stopPropagation(); 
+  event.preventDefault(); 
+    console.log(this.product)
     this.cartService.add_to_the_cart(this.product);
     this.router.navigate(['/cart']);
 

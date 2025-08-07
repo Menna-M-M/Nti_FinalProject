@@ -1,71 +1,60 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="card shadow p-4" style="width: 450px;">
-    <h3 class="text-center mb-4">Create Account</h3>
+  <div class="card shadow p-4" style="width: 450px; direction: ltr;">
+    <h3 class="text-center mb-4">Create New Account</h3>
 
     <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+      <!-- First Name -->
       <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="firstName" class="form-label">First Name</label>
         <input
           type="text"
           class="form-control"
-          id="name"
-          placeholder="Enter name"
-          formControlName="name"
+          id="firstName"
+          placeholder="Enter first name"
+          formControlName="firstName"
+          [class.is-invalid]="submitted && formControls['firstName'].invalid"
         />
+        <div *ngIf="submitted && formControls['firstName'].invalid" class="invalid-feedback">
+          <div *ngIf="formControls['firstName'].hasError('required')">First name is required</div>
+        </div>
       </div>
 
-      @if(formControls["name"].invalid && (formControls["name"].touched || submitted)){
-          <div class = "form-text text-danger">
-            @if(formControls["name"].hasError("required")){
-              <span> Name is required</span>
-            }
-        </div>
-      }
+      <!-- Last Name -->
       <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
+        <label for="lastName" class="form-label">Last Name</label>
         <input
           type="text"
           class="form-control"
-          id="username"
-          placeholder="Enter username"
-          formControlName="username"
+          id="lastName"
+          placeholder="Enter last name"
+          formControlName="lastName"
+          [class.is-invalid]="submitted && formControls['lastName'].invalid"
         />
-      </div>
-      
-        @if(formControls["username"].invalid && (formControls["username"].touched || submitted)){
-        <div class="form-text text-danger">
-          @if(formControls["username"].hasError("required")){
-            <span>Username is required</span>
-          }
-          @if(formControls["username"].hasError("pattern")){
-            <span>No spaces allowed in username</span>
-          }
+        <div *ngIf="submitted && formControls['lastName'].invalid" class="invalid-feedback">
+          <div *ngIf="formControls['lastName'].hasError('required')">Last name is required</div>
         </div>
-      }
-      
+      </div>
 
+      <!-- Email -->
       <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email" class="form-label">Email Address</label>
         <input
           type="email"
           class="form-control"
           id="email"
-          placeholder="Enter email"
+          placeholder="Enter your email"
           formControlName="email"
+          [class.is-invalid]="submitted && formControls['email'].invalid"
         />
+        <div *ngIf="submitted && formControls['email'].invalid" class="invalid-feedback">
+          <div *ngIf="formControls['email'].hasError('required')">Email is required</div>
+          <div *ngIf="formControls['email'].hasError('email') || formControls['email'].hasError('pattern')">
+            Please enter a valid email address
+          </div>
+        </div>
       </div>
 
-      @if(formControls["email"].invalid && (formControls["email"].touched || submitted)){
-        <div class="form-text text-danger">
-          @if(formControls["email"].hasError("required")){
-            <span>Email is required</span>
-          }
-          @if(formControls["email"].hasError("pattern")){
-            <span>Please enter a valid email address</span>
-          }
-        </div>
-      }
-
+      <!-- Password -->
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input
@@ -74,52 +63,50 @@
           id="password"
           placeholder="Enter password"
           formControlName="password"
+          [class.is-invalid]="submitted && formControls['password'].invalid"
         />
+        <div *ngIf="submitted && formControls['password'].invalid" class="invalid-feedback">
+          <div *ngIf="formControls['password'].hasError('required')">Password is required</div>
+          <div *ngIf="formControls['password'].hasError('minlength')">Password must be at least 8 characters long</div>
+          <div *ngIf="formControls['password'].hasError('pattern')">
+            Password must contain at least one uppercase letter, one lowercase letter, one number and one special character
+          </div>
+        </div>
       </div>
 
-        @if(formControls["password"].invalid && (formControls["password"].touched || submitted)){
-        <div class="form-text text-danger">
-          @if(formControls["password"].hasError("required")){
-            <span>Password is required</span>
-          }
-          @if(formControls["password"].hasError("minlength")){
-            <span>Password must be at least 8 characters</span>
-          }
-          @if(formControls["password"].hasError("pattern")){
-            <span>Password must include uppercase, lowercase, digit and special character (&#64;%$#*)</span>
-          }
-        </div>
-      }
-
+      <!-- Confirm Password -->
       <div class="mb-3">
         <label for="confirmPassword" class="form-label">Confirm Password</label>
         <input
           type="password"
           class="form-control"
           id="confirmPassword"
-          placeholder="Confirm password"
+          placeholder="Re-enter password"
           formControlName="confirmPassword"
+          [class.is-invalid]="submitted && (formControls['confirmPassword'].invalid || registerForm.hasError('passwordMismatch'))"
         />
+        <div *ngIf="submitted && (formControls['confirmPassword'].invalid || registerForm.hasError('passwordMismatch'))" class="invalid-feedback">
+          <div *ngIf="formControls['confirmPassword'].hasError('required')">Confirm password is required</div>
+          <div *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</div>
+        </div>
       </div>
 
-        @if(formControls["confirmPassword"].invalid && (formControls["confirmPassword"].touched || submitted)){
-        <div class="form-text text-danger">
-          @if(formControls["confirmPassword"].hasError("required")){
-            <span>Confirm Password is required</span>
-          }
-          @if(formControls["confirmPassword"].hasError("mismatch")){
-            <span>Confirm Password doesn't match</span>
+      <!-- Submit Button -->
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <span *ngIf="loading">
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            Creating account...
+          </span>
+          <span *ngIf="!loading">Create Account</span>
+        </button>
+      </div>
 
-          }
-        </div>
-      }
-
-      <button type="submit" class="btn btn-success w-100">Register</button>
-
+      <!-- Login Link -->
       <div class="text-center mt-3">
         Already have an account?
         <a routerLink="/login" routerLinkActive="active-link" class="text-decoration-none">Login</a>
-      </div>
+      </div>      
     </form>
   </div>
 </div>

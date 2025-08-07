@@ -1,63 +1,97 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="card shadow p-4" style="width: 400px;">
+  <div class="card shadow p-4" style="width: 400px; direction: ltr;">
     <h3 class="text-center mb-4">Login</h3>
 
-    <form #loginForm = "ngForm" (submit) = "handlesubmit(loginForm)">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email Input -->
       <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email" class="form-label">Email</label>
         <input
           type="email"
           class="form-control"
           id="email"
-          placeholder="Enter email"
-          name = "email"
-          ngModel
-          required
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          #emailfield = ngModel
+          formControlName="email"
+          placeholder="Enter your email"
+          [class.is-invalid]="submitted && f['email'].errors"
         />
+        @if (submitted && f['email'].errors) {
+          <div class="invalid-feedback">
+            @if (f['email'].errors['required']) {
+              <div>Email is required</div>
+            }
+            @if (f['email'].errors['email']) {
+              <div>Please enter a valid email</div>
+            }
+          </div>
+        }
       </div>
-      @if(emailfield.invalid && (emailfield.touched ||  loginForm.submitted)  ){
-        <div class = "form-text text-danger">
-            @if(emailfield.errors?.['required']){
-              <span> Email is required to login</span>
-            }
-            @if(emailfield.errors?.['pattern']){
-              <span> Pls provide an email with correct format</span>
-            }
-        </div>
-      }
-      <br>
+
+      <!-- Password Input -->
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input
           type="password"
           class="form-control"
           id="password"
-          placeholder="Enter password"
-          name = "password"
-          ngModel
-          required
-          #Passwordfield = ngModel
+          formControlName="password"
+          placeholder="Enter your password"
+          [class.is-invalid]="submitted && f['password'].errors"
         />
-      </div>
-      @if(Passwordfield.invalid && (Passwordfield.touched ||  loginForm.submitted)  ){
-        <div class = "form-text text-danger">
-            @if(Passwordfield.errors?.['required']){
-              <span> Password is required to login</span>
+        @if (submitted && f['password'].errors) {
+          <div class="invalid-feedback">
+            @if (f['password'].errors['required']) {
+              <div>Password is required</div>
             }
-        </div>
-      }
-      <br>
-      <button type="submit" class="btn btn-primary w-100" >Login</button>
-      
-      <div class="text-center mt-3">
-        <a href="hhh">Forgot password?</a>
+          </div>
+        }
       </div>
 
+      <!-- Forgot Password Button -->
+      <div class="text-end mb-3">
+        <button
+          type="button" (click)="navigateToForgotPassword()"
+          class="btn btn-link text-decoration-none text-primary p-0"
+        >
+          Forgot Password?
+        </button>
+      </div>
+
+      <!-- Remember Me -->
+      <div class="mb-3 form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="rememberMe"
+          formControlName="rememberMe"
+        />
+        <label class="form-check-label" for="rememberMe">Remember Me</label>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            Loading...
+          } @else {
+            Login
+          }
+        </button>
+      </div>
+
+      <!-- Welcome Message -->
+      <div *ngIf="showWelcome" class="alert alert-success text-center mt-3">
+        ✅ Welcome back, {{ userName }}!
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="message" class="alert alert-danger text-center mt-3">
+        {{ message }}
+      </div>
+
+      <!-- Register Link -->
       <div class="text-center mt-3">
-        Don't have an account?
-        <a routerLink="/register" routerLinkActive="active-link" class="text-decoration-none">Register</a>
+        <p>Don't have an account? <a routerLink="/register">Create a new account</a></p>
       </div>
     </form>
   </div>

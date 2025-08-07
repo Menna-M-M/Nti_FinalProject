@@ -76,6 +76,8 @@ removeFromCart(product: any) {
     };
     this.http.put<any>(`${this.baseUrl}/update-quantity`, payload).subscribe((res) => {
       this.cart_items.next(res.items || []);
+      this.loadCartFromServer(); // 🔁 Add this line
+
       this.updateState();
     });
   }
@@ -102,9 +104,24 @@ removeFromCart(product: any) {
   }
 
 
-  clearCart() {
+ clearCart() {
   this.cart_items.next([]);
   this.cart_counter.next(0);
+
+  this.http.delete(`${this.baseUrl}/${this.userId}`).subscribe({
+    next: () => {
+      console.log(" Cart cleared from server");
+    },
+    error: (err) => {
+      console.error(" Failed to clear cart from server", err);
+    }
+  });
 }
+
+  placeOrder(order: any) {
+    return this.http.post('http://localhost:4000/api/orders', order); 
+  }
+
+
 
 }

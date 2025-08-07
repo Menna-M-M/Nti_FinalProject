@@ -1,23 +1,62 @@
-<h2>Confirm Your Purchase</h2>
+<div class="container my-5 p-4 rounded shadow bg-white">
 
-<div *ngIf="cartItems.length > 0">
-  <h4>Items:</h4>
-  <ul>
-    <li *ngFor="let item of cartItems">
-      {{ item.name }} - {{ item.quantity }} x {{ item.price }} EGP
-    </li>
-  </ul>
+  <h2 class="text-center mb-4">🛒 Confirm Your Purchase</h2>
 
-  <h4>Total: {{ totalPrice }} EGP</h4>
+  <div *ngIf="cartItems.length > 0">
+    <h4 class="mb-3">Items:</h4>
+    <ul class="list-group mb-4">
+      <li *ngFor="let item of cartItems" class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ item.product.title }} (x{{ item.quantity }})</span>
+        <span>{{ item.product.price * item.quantity  | number:'1.2-2'}} EGP</span>
+      </li>
+    </ul>
 
-  <h4>Shipping Information</h4>
-  <input [(ngModel)]="shippingInfo.address" placeholder="Address" required />
-  <input [(ngModel)]="shippingInfo.phone" placeholder="Phone" required />
-  <textarea [(ngModel)]="shippingInfo.notes" placeholder="Notes"></textarea>
+    <div class="mb-4">
+      <h4>Total: <span class="text-success">{{ totalPrice | number:'1.2-2' }} EGP</span></h4>
+    </div>
 
-  <button (click)="placeOrder()">Place Order</button>
-</div>
+   
+  <form [formGroup]="shippingForm" (ngSubmit)="placeOrder()">
+  <h4 class="mb-3">Shipping Information</h4>
 
-<div *ngIf="cartItems.length === 0">
-  <p>Your cart is empty.</p>
-</div>
+  <div class="mb-3">
+    <input class="form-control" formControlName="address" placeholder="🏠 Address" />
+      @if (formControls["address"].invalid && (formControls["address"].touched || submitted)) {
+      <div class="form-text text-danger">
+        @if (formControls["address"].hasError("required")) {
+          <span>Address is required</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <input class="form-control" formControlName="phone" placeholder="📞 Phone" />
+      @if (formControls["phone"].invalid && (formControls["phone"].touched || submitted)) {
+      <div class="form-text text-danger">
+        @if (formControls["phone"].hasError("required")) {
+          <span>Phone number is required</span>
+        }
+        @if (formControls["phone"].hasError("pattern")) {
+          <span>Phone number must be at least 10 digits and numeric</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-4">
+    <textarea class="form-control" formControlName="notes" rows="3" placeholder="📝 Notes (Optional)"></textarea>
+  </div>
+
+
+    <div class="text-center">
+      <button class="btn btn-success btn-lg px-5 rounded-pill shadow-sm" type = "submit">
+        ✅ Place Order
+      </button>
+    </div>
+
+
+  <div *ngIf="cartItems.length === 0" class="text-center">
+    <p class="text-muted">Your cart is empty.</p>
+  </div>
+
