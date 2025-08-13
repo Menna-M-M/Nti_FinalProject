@@ -55,6 +55,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/verify-reset-code`, payload);
   }
 
+
   logout(): Observable<any> {
     // First, clear local storage
     localStorage.removeItem('token');

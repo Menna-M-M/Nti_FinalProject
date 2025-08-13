@@ -14,6 +14,26 @@ export class ProductServiceService {
     return this.http.get<Product[]>('http://localhost:4000/api/products');
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   get_product_details (id:string){
     return this.http.get (`https://dummyjson.com/products/${id}`)
   }
