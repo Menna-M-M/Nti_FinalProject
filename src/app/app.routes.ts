@@ -7,12 +7,17 @@ import { CartComponent } from './cart/cart.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BuyComponent } from './buy/buy/buy.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { VerifyResetComponent } from './verify-reset/verify-reset.component';
 
 export const routes: Routes = [
+    { path: 'products/add', component: AddProductComponent },
+    { path: 'products/edit/:id', component: EditProductComponent },
+    { path: 'buy', component: BuyComponent },
     {path: '', component: ProductsListComponent,title: 'Products-List'},
     {path: 'product/:id', component:ProductDetailsComponent , title: 'Product-Details'},
     {path: 'login', component: LoginComponent, title: 'Login'},

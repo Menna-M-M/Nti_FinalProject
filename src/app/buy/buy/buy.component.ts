@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { CartServiceService } from '../../services/cart-service.service';
 import { OrderService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-buy',
